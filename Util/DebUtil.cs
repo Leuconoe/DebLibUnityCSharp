@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -181,9 +182,9 @@ namespace DebLib
             return string.Empty;
             }
             return "";
-            #else
+#else
                         return "";
-            #endif
+#endif
         }
 
 #endif
@@ -340,11 +341,9 @@ namespace DebLib
     }
 }
 
-/// <summary>
-/// 페이크 널 참조를 위한 확장
-/// </summary>
-public static class UnityObjectExtensions
+public static class ClassExtension
 {
+    #region object
     public static bool IsRealNull(this UnityEngine.Object obj)
     {
         return ReferenceEquals(obj, null);
@@ -359,4 +358,47 @@ public static class UnityObjectExtensions
     {
         return obj;
     }
+    #endregion
+    #region gameobject
+    public static List<GameObject> GetAllChilds(this GameObject Go)
+    {
+        List<GameObject> list = new List<GameObject>();
+        for (int i = 0; i < Go.transform.childCount; i++)
+        {
+            list.Add(Go.transform.GetChild(i).gameObject);
+        }
+        return list;
+    }
+    #endregion
+    #region EDITOR
+#if true //UNITY_EDITOR
+    public static void DrawString(string text, Vector3 worldPos, Color? colour = null)
+    {
+        UnityEditor.Handles.BeginGUI();
+        var view = UnityEditor.SceneView.currentDrawingSceneView;
+        Vector3 screenPos = view.camera.WorldToScreenPoint(worldPos);
+
+        if (screenPos.y < 0 || screenPos.y > Screen.height || screenPos.x < 0 || screenPos.x > Screen.width || screenPos.z < 0)
+        {
+            UnityEditor.Handles.EndGUI();
+            return;
+        }
+
+        Vector2 size = GUI.skin.label.CalcSize(new GUIContent(text));
+        if (!colour.HasValue)
+        {
+            Color c = GUI.color;
+            GUI.color = Color.black;
+            GUI.Label(new Rect(screenPos.x - (size.x / 2) - 1, -screenPos.y + view.position.height + 4 - 1, size.x, size.y), text);
+            GUI.Label(new Rect(screenPos.x - (size.x / 2) - 1, -screenPos.y + view.position.height + 4 + 1, size.x, size.y), text);
+            GUI.Label(new Rect(screenPos.x - (size.x / 2) + 1, -screenPos.y + view.position.height + 4 + 1, size.x, size.y), text);
+            GUI.Label(new Rect(screenPos.x - (size.x / 2) + 1, -screenPos.y + view.position.height + 4 - 1, size.x, size.y), text);
+            GUI.color = c;
+        }
+        if (colour.HasValue) GUI.color = colour.Value;
+        GUI.Label(new Rect(screenPos.x - (size.x / 2), -screenPos.y + view.position.height + 4, size.x, size.y), text);
+        UnityEditor.Handles.EndGUI();
+    }
+#endif
+    #endregion
 }
