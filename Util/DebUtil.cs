@@ -371,7 +371,7 @@ public static class ClassExtension
     }
     #endregion
     #region EDITOR
-#if true //UNITY_EDITOR
+#if UNITY_EDITOR
     public static void DrawString(string text, Vector3 worldPos, Color? colour = null)
     {
         UnityEditor.Handles.BeginGUI();

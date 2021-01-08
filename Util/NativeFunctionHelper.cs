@@ -35,6 +35,7 @@ public class NativeFunctionHelper : MonoBehaviour
 #if UNITY_EDITOR
         ShowEditorPopup(title, message, btn1, action1, string.Empty, null);
 #else
+/*
          EasyMobile.NativeUI.Alert(title, message, btn1).OnComplete += (buttonIndex) => 
         {
             bool isFistButtonClicked = buttonIndex == 0;
@@ -45,6 +46,7 @@ public class NativeFunctionHelper : MonoBehaviour
             if (isSecondButtonClicked) { };
             if (isThirdButtonClicked) { };
         };
+        */
 #endif
 
 
@@ -64,6 +66,7 @@ public class NativeFunctionHelper : MonoBehaviour
 #if UNITY_EDITOR
         ShowEditorPopup(title, message, btn1, action1, btn2, action2);
 #else
+/*
         EasyMobile.NativeUI.ShowTwoButtonAlert(title, message, btn1, btn2).OnComplete += (buttonIndex) =>
         {
             bool isFistButtonClicked = buttonIndex == 0;
@@ -74,6 +77,7 @@ public class NativeFunctionHelper : MonoBehaviour
             if (isSecondButtonClicked) { if (action2 != null) action2.Invoke(); };
             if (isThirdButtonClicked) { };
         };
+        */
 #endif
 
 
