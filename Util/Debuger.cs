@@ -4,7 +4,7 @@ using Debug = UnityEngine.Debug;
 
 public static class Debuger
 {
-    private static bool isDebugMode = false;
+    private static bool isDebugMode = true;
 
     public static void TimeLog(object message)
     {
