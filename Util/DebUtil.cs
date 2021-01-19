@@ -292,7 +292,7 @@ namespace DebLib
         public static string NumberAddComma(IFormattable val, int demicalCount = 2)
         {
             //string.Format(System.Globalization.CultureInfo.CurrentCulture , "{0:#.##}",val);
-            return val.ToString("#,#0." + string.Concat("#", demicalCount), System.Globalization.CultureInfo.CurrentCulture);
+            return val.ToString("#,#." + new string('#', demicalCount), System.Globalization.CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -338,6 +338,20 @@ namespace DebLib
         }
 
         #endregion string
+
+        #region UI
+        public static void SetLayerWithChild(Transform t, int layer)
+        {
+            t.gameObject.layer = layer;
+
+            for (int i = 0; i < t.childCount; ++i)
+            {
+                Transform child = t.GetChild(i);
+                SetLayerWithChild(child, layer);
+            }
+        }
+
+        #endregion
     }
 }
 

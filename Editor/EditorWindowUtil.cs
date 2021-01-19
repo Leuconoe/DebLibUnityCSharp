@@ -58,5 +58,14 @@ public static class EditorWindowUtil
 		GUI.Label(new Rect(screenPos.x - (size.x / 2), -screenPos.y + view.position.height + 4, size.x, size.y), text);
 		UnityEditor.Handles.EndGUI();
 	}
+
+	[MenuItem("DebLibs/DeleteAll Playerpref")]
+	private static void DeleteAllPlayerpref()
+	{
+		PlayerPrefs.DeleteAll();
+		PlayerPrefs.Save();
+
+		Debug.Log("PlayerPrefs DeleteAll");
+	}
 }
 
