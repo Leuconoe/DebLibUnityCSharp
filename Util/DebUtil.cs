@@ -291,8 +291,16 @@ namespace DebLib
         /// <returns></returns>
         public static string NumberAddComma(IFormattable val, int demicalCount = 2)
         {
-            //string.Format(System.Globalization.CultureInfo.CurrentCulture , "{0:#.##}",val);
-            return val.ToString("#,#." + new string('#', demicalCount), System.Globalization.CultureInfo.CurrentCulture);
+            System.Globalization.CultureInfo cc = System.Globalization.CultureInfo.CurrentCulture;
+            //return val.ToString("N", cultureinfo);
+            return val.ToString("#,##0.###", cc);
+
+            //if (int.Parse(val.ToString()) == 0)
+           // {
+           //     return "0";
+           // }
+            //string.Format(cultureinfo , "{0:#.##}",val);
+            //return val.ToString("#,#." + new string('#', demicalCount), cc);
         }
 
         /// <summary>
