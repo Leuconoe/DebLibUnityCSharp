@@ -293,7 +293,7 @@
             }
             AssetBundleName.PathAndType = existItems;
 
-            Debuger.Log(cnt + " item set name");
+            //Debuger.Log(cnt + " item set name");
         }
 
         private static void SetAssetBundleName(string path, string AssetName)
